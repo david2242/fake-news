@@ -1,0 +1,59 @@
+<div class="container-md">
+    <div class="row">
+        <div class="col-s-0 col-md-3"></div>
+        <div class="col-s-1 col-md-6">
+            <div class="row">
+                <div class="col">
+                    <h5 class="mt-5 mb-3">Login</h5>
+                    <form action="" [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                        <div class="form-floating mb-3">    
+                            <input formControlName="loginEmail" type="email" class="form-control" [ngClass]="validHelper(loginEmail)" id="loginEmail"
+                                placeholder="name@example.com">
+                            <label for="loginEmail">Email address</label>
+                            <small *ngIf="smallTextHelper(loginEmail)" class="text-danger">Please enter a valid e-mail!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="loginPassword" type="password" [ngClass]="validHelper(loginPassword)"
+                                id="loginPassword" placeholder="Password">
+                            <label for="loginPassword">Password</label>
+                            <small *ngIf="smallTextHelper(loginPassword)" class="text-danger">Please enter a the password!</small>
+                        </div>
+                        <button [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+                    </form>
+
+                    <hr class="my-5">
+
+                    <h5 class="my-3">New User</h5>
+                    <form action="" [formGroup]="userForm" (ngSubmit)="regNewUser()">
+                        <div class="form-floating mb-3">
+                            <input formControlName="userEmail" type="email" [ngClass]="validHelper(userEmail)" id="userEmail"
+                                placeholder="name@example.com">
+                            <label for="userEmail">Email address</label>
+                            <small *ngIf="smallTextHelper(userEmail)" class="text-danger">Please enter a valid e-mail!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="userPassword" type="password" [ngClass]="validHelper(userPassword)" id="userPassword"
+                                placeholder="Password">
+                            <label for="userPassword">Password</label>
+                            <small *ngIf="smallTextHelper(userPassword)" class="text-danger">Password must be at least 5 characters!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="userPasswordAgain" type="password" [ngClass]="passwordHelper()" id="userPasswordAgain"
+                                placeholder="Type password again!">
+                            <label for="userPasswordAgain">Password</label>
+                            <small *ngIf="passwordSmallTextHelper()" class="text-danger">Type password again!</small>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input formControlName="userName" type="text" [ngClass]="validHelper(userName)" id="userName"
+                                placeholder="Username">
+                            <label for="userName">Username</label>
+                            <small *ngIf="smallTextHelper(userName)" class="text-danger">Username must be at least 5 characters!</small>
+                        </div>
+                        <button [disabled]="userForm.invalid || passwordSmallTextHelper()" class="btn btn-primary mb-5">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-s-0 col-md-3"></div>
+    </div>
+</div>

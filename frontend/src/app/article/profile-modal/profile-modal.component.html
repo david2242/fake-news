@@ -1,0 +1,28 @@
+<div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userProfileModalLabel">User Info</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row d-flex flex-row">
+                        <div class="col-9">
+                            <div class="row my-1"><div class="col-3">Username:</div><div class="col-9"><em>{{ pickedUserProfile.username }}</em></div></div>
+                            <div class="row my-1"><div class="col-3">Biograph:</div><div class="col-9"><em>{{ pickedUserProfile.bio }}</em></div></div>
+                        </div>
+                        <div *ngIf="pickedUserProfile.imageRef != '' && pickedUserProfile.imageRef" class="col-3" >
+                            <img [src]="pickedUserProfile.imageRef" alt="profile picture" style="height: 75px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="pickedUserProfile.username == loggedInUsername" *ngIf="loggedIn && !pickedUserProfile.following" (click)="followUser(pickedUserProfile.username)" type="button" class="btn btn-primary">Follow</button>
+                <button *ngIf="loggedIn && pickedUserProfile.following" (click)="unfollowUser(pickedUserProfile.username)" type="button" class="btn btn-primary">UnFollow</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

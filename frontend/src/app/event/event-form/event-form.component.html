@@ -1,0 +1,98 @@
+<div *ngIf="loggedIn" style="height: 50px;"></div>
+<div *ngIf="!loggedIn" style="height: 150px"></div>
+<div *ngIf="!loggedIn" class="text-center"><button class="n btn-secondary btn-lg" href="#" routerLink="/user/reglog">Log
+  in first!</button></div>
+<div *ngIf="loggedIn" class="container-md">
+  <form [formGroup]="eventForm">
+    <h5 class="my-3">New Event</h5>
+    <div class="mb-3">
+      <label for="name" class="form-label">Event name</label>
+      <input formControlName="name" type="text" class="form-control" id="name">
+      <small *ngIf="name?.invalid && name?.touched" class="text-danger">Proper name of the event!</small>
+    </div>
+    <div class="mb-3">
+      <label for="cause" class="form-label">Event cause</label>
+      <input formControlName="cause" type="text" class="form-control" id="cause">
+      <small *ngIf="name?.invalid && name?.touched" class="text-danger">What is the purpose of the event?</small>
+    </div>
+    <div class="mb-3">
+      <div class="form-check">
+        <input formControlName="nature" class="form-check-input" type="radio" name="nature" id="publicLocation" value="publicLocation">
+        <label class="form-check-label" for="publicLocation">
+          Public Location
+        </label>
+      </div>
+      <div class="form-check">
+        <input formControlName="nature" class="form-check-input" type="radio" name="nature" id="secretLocation" value="secretLocation">
+        <label class="form-check-label" for="secretLocation">
+          Secret Location
+        </label>
+      </div>
+      <small *ngIf="name?.invalid && name?.touched" class="text-danger">Select if the location is public or secret!</small>
+    </div>
+    <div class="mb-3" formGroupName="location">
+      <label for="zip" class="form-label">Location</label>
+      <div class="input-group mb-2">
+        <span class="input-group-text">ZIP</span>
+        <input [readonly]="!(nature!.value == 'publicLocation')" formControlName="zip" type="text" class="form-control" id="zip">
+        <input [readonly]="!(nature!.value == 'publicLocation')" formControlName="city" type="text" class="form-control" id="city">
+        <span class="input-group-text">City</span>
+      </div>
+      <div class="d-flex justify-content-between mt-0 mb-2">
+        <small *ngIf="zip?.invalid && zip?.touched" class="text-danger">Address needs valid ZIP code!</small>
+        <small *ngIf="city?.invalid && city?.touched" class="text-danger">Address needs valid city name!</small>
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Address</span>
+        <input [readonly]="!(nature!.value == 'publicLocation')" formControlName="address" type="text" class="form-control" id="address">
+        <input [readonly]="!(nature!.value == 'publicLocation')" formControlName="floorDoor" type="text" class="form-control" id="floorDoor">
+        <span class="input-group-text">Floor, door</span>
+      </div>
+      <div class="d-flex justify-content-between mt-0 mb-2">
+        <small *ngIf="address?.invalid && address?.touched" class="text-danger">Address needs valid ZIP code!</small>
+        <small *ngIf="floorDoor?.invalid && floorDoor?.touched" class="text-danger">Address needs valid city name!</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="locationCode" class="form-label">Secret location code</label>
+      <select [disabled]="!(nature!.value == 'secretLocation')" id="locationCode" class="form-select">
+        <option value="A" selected>A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+    </div>
+    <div class="d-flex justify-content-start mb-3">
+      <span [ngClass]="{'fw-bold': !public?.value}" class="me-2">Private event</span>
+      <div class="form-check form-switch me-2">
+        <input formControlName="public" class="form-check-input" type="checkbox" role="switch" id="public" checked>
+      </div>
+      <span [ngClass]="{'fw-bold': public?.value}" class="me-2">Public event</span>
+    </div>
+    <div class="mb-3">
+      <label for="startTime" class="form-label">Event starts:</label>
+      <input type="datetime-local" class="form-control" id="startTime" formControlName="startTime">
+      <small *ngIf="startTime?.invalid && startTime?.touched" class="text-danger">When does it start?</small>
+    </div>
+    <div class="mb-3">
+      <label for="endTime" class="form-label">Event ends:</label>
+      <input type="datetime-local" class="form-control" id="endTime" formControlName="endTime">
+      <small *ngIf="endTime?.invalid && endTime?.touched" class="text-danger">When does it end?</small>
+    </div>
+    <div class="mb-3">
+      <label for="dressCode" class="form-label">Event dresscode (optional):</label>
+      <input formControlName="dressCode" type="text" class="form-control" id="dressCode">
+    </div>
+    <div class="d-flex justify-content-between flex-row-reverse mb-5">
+      <!-- <div >
+      </div>
+      <div> -->
+<!--            <button (click)="submitEvent()" class="btn btn-primary ms-3">Submit</button>-->
+            <button *ngIf="!updating" (click)="submitEvent()" class="btn btn-primary ms-3">Submit</button>
+            <button *ngIf="updating" (click)="updateEvent()" class="btn btn-success ms-3">Update</button>
+            <button *ngIf="updating" (click)="deleteEvent()" class="btn btn-danger ms-3">Delete</button>
+            <button *ngIf="updating" type="button" routerLink="/event" class="btn btn-secondary me-3">Back</button>
+      <!-- </div> -->
+    </div>
+  </form>
+</div>
